@@ -1,4 +1,3 @@
-import io
 from typing import Tuple
 
 import holidays
@@ -235,24 +234,15 @@ def main() -> None:
         "Auftragsdatei hochladen", type=["csv", "xlsx", "xls"]
     )
 
-    use_example = st.checkbox("Beispieldatei aus Projektordner verwenden (order.csv)")
-
     source_df = None
     source_label = None
 
     if uploaded_file is not None:
         source_df = read_orders(uploaded_file)
         source_label = uploaded_file.name
-    elif use_example:
-        try:
-            with open("order.csv", "rb") as f:
-                source_df = read_orders(io.BytesIO(f.read()), file_name="order.csv")
-            source_label = "order.csv"
-        except FileNotFoundError:
-            st.error("Keine order.csv im Projektordner gefunden.")
 
     if source_df is None:
-        st.info("Bitte eine Datei hochladen oder die Beispieldatei aktivieren.")
+        st.info("Bitte eine Datei hochladen.")
         return
 
     st.subheader(f"Geladene Daten: {source_label}")
