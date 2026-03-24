@@ -84,12 +84,27 @@ Proxy Host anlegen:
 
 ### 7) Update-Workflow
 
-Nach Änderungen:
+Nach Änderungen zuerst lokal nach GitHub pushen, dann auf dem Server ausrollen.
+
+1. Lokal committen und pushen:
+
+```bash
+cd /Users/Hohenberger/Documents/CLI-Projekte/PredictiveOrderM
+git add .
+git commit -m "Beschreibung der Änderung"
+git push
+```
+
+2. Auf dem Server aktualisieren:
 
 ```bash
 cd /opt/predictiveorder
+git pull
 docker compose up -d --build
+docker compose ps
 ```
+
+Hinweis: Für den Docker-Deploy ist keine aktive Python-`venv` auf dem Server nötig.
 
 ## Hinweise
 
